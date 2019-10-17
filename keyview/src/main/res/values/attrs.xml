@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KeyView">
+
+        <attr name="key_view_text_length" format="integer" />
+        <attr name="key_view_text_color" format="color" />
+        <attr name="key_view_underline_color" format="color" />
+        <attr name="key_view_text_size" format="dimension" />
+        <attr name="key_view_key_to_underline_padding" format="dimension" />
+
+        <attr name="key_view_hide_character" format="enum">
+            <enum name="dot" value="0" />
+            <enum name="star" value="1" />
+        </attr>
+
+    </declare-styleable>
+
+</resources>
