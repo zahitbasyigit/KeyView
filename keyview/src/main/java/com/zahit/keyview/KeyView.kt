@@ -46,15 +46,31 @@ class KeyView @JvmOverloads constructor(
     private var layoutWidth = 0
     private var layoutHeight = 0
 
-    private var textColor = Color.BLACK
-    private var textSize = 0f
-    private var keyToUnderlinePadding = 0
-
     private var previouslyHadError = false
+
+    var textColor = Color.BLACK
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var textSize = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var keyToUnderlinePadding = 0
+        set(value) {
+            field = value
+            invalidate()
+        }
+
 
     var maxTextLength = 0
         set(value) {
             field = value
+            currentText = ""
             invalidate()
         }
 
@@ -260,18 +276,6 @@ class KeyView @JvmOverloads constructor(
         this.maxTextLength = length
     }
 
-    private fun setTextColor(textColor: Int) {
-        this.textColor = textColor
-    }
-
-    private fun setTextSize(textSize: Float) {
-        this.textSize = textSize
-    }
-
-    private fun setKeyToUnderlinePadding(keyToUnderlinePadding: Int) {
-        this.keyToUnderlinePadding = keyToUnderlinePadding
-    }
-
     private fun initAttrs(attrs: AttributeSet) {
         val typedArray = context.obtainStyledAttributes(
             attrs,
@@ -279,12 +283,16 @@ class KeyView @JvmOverloads constructor(
         )
 
         setLength(typedArray.getInt(R.styleable.KeyView_key_view_text_length, 1))
-        setTextColor(typedArray.getColor(R.styleable.KeyView_key_view_text_color, Color.BLACK))
-        setTextSize(
+
+        textSize =
             typedArray.getDimensionPixelSize(
                 R.styleable.KeyView_key_view_text_size,
                 0
             ).toFloat()
+
+        textColor = typedArray.getColor(
+            R.styleable.KeyView_key_view_text_color,
+            Color.BLACK
         )
 
         underlineColor = typedArray.getColor(
@@ -297,12 +305,11 @@ class KeyView @JvmOverloads constructor(
             0
         )]
 
-        setKeyToUnderlinePadding(
+        keyToUnderlinePadding =
             typedArray.getDimensionPixelSize(
                 R.styleable.KeyView_key_view_key_to_underline_padding,
                 0
             )
-        )
 
         typedArray.recycle()
     }
